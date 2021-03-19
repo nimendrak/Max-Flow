@@ -1,0 +1,22 @@
+logs
+project/project
+project/target
+target
+tmp
+.history
+dist
+.class
+lib
+/.idea
+/*.iml
+/out
+/.idea_modules
+/.classpath
+/.project
+/RUNNING_PID
+/.settings
+
+# Operating System Files
+
+*.DS_Store
+Thumbs.db
