@@ -104,26 +104,5 @@ class MaxFlow {
         // Return the overall flow
         return max_flow;
     }
-
-    // Driver program to test above functions
-    public static void main(String[] args) throws java.lang.Exception {
-//        File file = new File("test_data.txt");
-//
-//        BufferedReader br = new BufferedReader(new FileReader(file));
-//
-//        String st;
-//        while ((st = br.readLine()) != null)
-//            System.out.println(st);
-
-        // Let us create a graph shown in the above example
-        int[][] graph = new int[][]{
-                {0, 16, 13, 0, 0, 0}, {0, 0, 10, 12, 0, 0},
-                {0, 4, 0, 0, 14, 0}, {0, 0, 9, 0, 0, 20},
-                {0, 0, 0, 7, 0, 4}, {0, 0, 0, 0, 0, 0}
-        };
-        MaxFlow m = new MaxFlow();
-
-        System.out.println("The maximum possible flow is " + m.fordFulkerson(graph, 0, 5));
-    }
 }
 
