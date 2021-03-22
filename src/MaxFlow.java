@@ -18,8 +18,7 @@ class MaxFlow {
 
         // Create a queue, enqueue source vertex and mark
         // source vertex as visited
-        LinkedList<Integer> queue
-                = new LinkedList<Integer>();
+        LinkedList<Integer> queue = new LinkedList<Integer>();
         queue.add(s);
         visited[s] = true;
         parent[s] = -1;
@@ -64,6 +63,7 @@ class MaxFlow {
         // residual capacity of edge from i to j (if there
         // is an edge. If rGraph[i][j] is 0, then there is
         // not)
+
         int[][] rGraph = new int[VERTICES][VERTICES];
 
         for (u = 0; u < VERTICES; u++) {
