@@ -6,7 +6,6 @@ tmp
 .history
 dist
 .class
-lib
 /.idea
 /*.iml
 /out
