@@ -10,14 +10,17 @@ public class SwingUi {
     JFrame mainFrame;
     JPanel populateNetwork;
 
-    public SwingUi(int[][] currentGraphMatrix, int[][] graphMatrix, int vertices) {
-        mainFrame = new JFrame("Network Flow");
-        mainFrame.setResizable(false);
+    private int[][] currentGraphMatrix;
+    private int[][] graphMatrix;
+    private int vertices;
 
-        populateNetwork = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
-        populateNetwork.setSize(800, 600);
-        populateNetwork.setBorder(new EmptyBorder(50, 10, 10, 10));
-        populateNetwork.setVisible(false);
+    public SwingUi(int[][] currentGraphMatrix, int[][] graphMatrix, int vertices) {
+        this.currentGraphMatrix = currentGraphMatrix;
+        this.graphMatrix = graphMatrix;
+        this.vertices = vertices;
+
+        mainFrame = new JFrame("Simulator");
+        mainFrame.setResizable(false);
 
         JLabel jLabel = new JLabel("Simulations for Maximum Flow");
         jLabel.setBounds(25, 25, 300, 50);
@@ -36,13 +39,9 @@ public class SwingUi {
         generateBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (r1.isSelected()) {
-                    populateNetwork.removeAll();
-                    DisplayGraph.displayGraph(graphMatrix, vertices, populateNetwork);
-                    mainFrame.add(populateNetwork);
+                    displayMatrix(graphMatrix);
                 } else {
-                    populateNetwork.removeAll();
-                    DisplayGraph.displayGraph(currentGraphMatrix, vertices, populateNetwork);
-                    mainFrame.add(populateNetwork);
+                    displayMatrix(currentGraphMatrix);
                 }
                 populateNetwork.setVisible(true);
             }
@@ -56,6 +55,17 @@ public class SwingUi {
         mainFrame.setSize(900, 700);
         mainFrame.setLayout(null);//using no layout managers
         mainFrame.setVisible(true);//making the frame visible
+    }
+
+    public void displayMatrix(int[][] graphMatrix) {
+        populateNetwork = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
+        populateNetwork.setSize(800, 600);
+        populateNetwork.setBorder(new EmptyBorder(50, 10, 10, 10));
+        populateNetwork.setVisible(false);
+
+        populateNetwork.removeAll();
+        DisplayGraph.displayGraph(graphMatrix, vertices, populateNetwork);
+        mainFrame.add(populateNetwork);
     }
 }
 

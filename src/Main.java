@@ -79,7 +79,7 @@ public class Main {
     private static void drawGraph() {
         // declaration and initialise String Array
 //        JungGraph.displayGraph(fortFulkerson.getSolution(), VERTICES);
-        SwingUi swingUi = new SwingUi(fortFulkerson.getSolution(), graph,VERTICES);
+        SwingUi swingUi = new SwingUi(fortFulkerson.getSolution(), graph, VERTICES);
     }
 
     public static void findMaxFlow() {
@@ -88,6 +88,14 @@ public class Main {
         System.out.println("\n*************************************");
         System.out.println("\033[1;93m" + "FIND MAXIMUM FLOW FOR A GIVEN NETWORK" + "\033[0m");
         System.out.println("*************************************\n");
+
+//        if (!loadedDataArr.isEmpty()) {
+//            loadedDataArr.clear();
+//        }
+//        if (graph[0] != null) {
+//            Arrays.fill(graph, null);
+//            graph = null;
+//        }
 
         try {
             boolean isContain = false;
