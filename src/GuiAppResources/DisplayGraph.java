@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class JungGraph {
+public class DisplayGraph {
     /**
      * This method visualizes a graph
      *
@@ -28,7 +28,7 @@ public class JungGraph {
      * @param ver         - Loaded Vertices count
      * @return
      */
-    public static Object displayGraph(int[][] graphMatrix, int ver) {
+    public static JPanel displayGraph(int[][] graphMatrix, int ver, JPanel frame) {
         FlowPane graphPane = new FlowPane();
         graphPane.setPrefWidth(980);
 
@@ -41,8 +41,10 @@ public class JungGraph {
             arrIndex[0] = "S";
             arrIndex[arrIndex.length - 1] = "T";
 
+            System.out.println();
             System.out.println("graph matrix len -> " + Arrays.deepToString(graphMatrix));
             System.out.println("arrIndex len -> " + Arrays.toString(arrIndex));
+            System.out.println();
 
             //Create a new graph object
             Graph<String, String> graph = new OrderedSparseMultigraph<String, String>();
@@ -128,10 +130,8 @@ public class JungGraph {
             vs.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<>());
 
             //Initialize JFrames
-            JFrame frame = new JFrame("Flow Network");
-            frame.getContentPane().add(vs);
-            frame.pack();
-            frame.setVisible(true);
+            frame.add(vs);
+            System.out.println("JFrame returned");
 
             //Initialize
             return frame;
@@ -139,6 +139,7 @@ public class JungGraph {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("JFrame NOT returned");
         return null;
     }
 }

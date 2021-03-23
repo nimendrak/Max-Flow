@@ -1,4 +1,4 @@
-import GuiAppResources.JungGraph;
+import GuiAppResources.SwingUi;
 
 import java.io.*;
 import java.util.*;
@@ -78,7 +78,8 @@ public class Main {
 
     private static void drawGraph() {
         // declaration and initialise String Array
-        JungGraph.displayGraph(fortFulkerson.getSolution(), VERTICES);
+//        JungGraph.displayGraph(fortFulkerson.getSolution(), VERTICES);
+        SwingUi swingUi = new SwingUi(fortFulkerson.getSolution(), graph,VERTICES);
     }
 
     public static void findMaxFlow() {
