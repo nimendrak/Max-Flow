@@ -1,15 +1,17 @@
 // Java program for implementation of Ford Fulkerson algorithm
 
 import java.lang.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 
-class MaxFlow {
+class FortFulkerson {
     static int VERTICES; // Number of vertices in graph
+    int[][] residualGraph;
 
     /* Returns true if there is a path from source 's' to
     sink 't' in residual graph. Also fills parent[] to
     store the path */
-    boolean bfs(int[][] rGraph, int s, int t, int[] parent) {
+    boolean breadthFirstSearch(int[][] rGraph, int s, int t, int[] parent) {
         // Create a visited array and mark all vertices as
         // not visited
         boolean[] visited = new boolean[VERTICES];
@@ -64,11 +66,11 @@ class MaxFlow {
         // is an edge. If rGraph[i][j] is 0, then there is
         // not)
 
-        int[][] rGraph = new int[VERTICES][VERTICES];
+        residualGraph = new int[VERTICES][VERTICES];
 
         for (u = 0; u < VERTICES; u++) {
             for (v = 0; v < VERTICES; v++) {
-                rGraph[u][v] = graph[u][v];
+                residualGraph[u][v] = graph[u][v];
             }
         }
 
@@ -79,29 +81,33 @@ class MaxFlow {
 
         // Augment the flow while tere is path from source
         // to sink
-        while (bfs(rGraph, s, t, parent)) {
+        while (breadthFirstSearch(residualGraph, s, t, parent)) {
             // Find minimum residual capacity of the edhes
             // along the path filled by BFS. Or we can say
             // find the maximum flow through the path found.
             int path_flow = Integer.MAX_VALUE;
             for (v = t; v != s; v = parent[v]) {
                 u = parent[v];
-                path_flow = Math.min(path_flow, rGraph[u][v]);
+                path_flow = Math.min(path_flow, residualGraph[u][v]);
             }
 
             // update residual capacities of the edges and
             // reverse edges along the path
             for (v = t; v != s; v = parent[v]) {
                 u = parent[v];
-                rGraph[u][v] -= path_flow;
-                rGraph[v][u] += path_flow;
+                residualGraph[u][v] -= path_flow;
+                residualGraph[v][u] += path_flow;
             }
-
             // Add path flow to overall flow
             max_flow += path_flow;
         }
 
         // Return the overall flow
         return max_flow;
+    }
+
+    public int[][] getSolution() {
+        System.out.println("solution -> " + Arrays.deepToString(residualGraph));
+        return residualGraph;
     }
 }

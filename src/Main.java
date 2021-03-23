@@ -1,15 +1,18 @@
+import GuiAppResources.JungGraph;
+
 import java.io.*;
 import java.util.*;
 
-public class TestData {
+public class Main {
     static int VERTICES = 0;
 
     static List<String> bridgeArr = new ArrayList<>();
     static List<String> ladderArr = new ArrayList<>();
 
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
-    static int[][] graph;
+    static FortFulkerson fortFulkerson = new FortFulkerson();
     static Scanner sc = new Scanner(System.in);
+    static int[][] graph;
 
     public static void main(String[] args) {
         loadTestData();
@@ -18,10 +21,10 @@ public class TestData {
 
         System.out.println("\n*********************************************");
         System.out.println("*** " + "\033[1;93m" + "FIND MAXIMUM FLOW FOR A GIVEN NETWORK" + "\033[0m" + " ***");
-        System.out.println("*********************************************\n");
+        System.out.println("*********************************************");
 
         do {
-            System.out.println("Choose a option, which mentioned below\n");
+            System.out.println("\nChoose a option, which mentioned below\n");
             System.out.println("Prompt \"V\" to view loaded test data files");
             System.out.println("Prompt \"F\" to find Max Flow of test data");
             System.out.println("Prompt \"G\" to show Max Flow Graph");
@@ -48,19 +51,14 @@ public class TestData {
 
                 case "q":
                 case "Q":
-                    System.out.print("\nAre you sure to exit (Y/N) : ");
-                    String option = sc.next();
-                    if (option.equalsIgnoreCase("y")) {
-                        System.out.println("\nProgram is now Exiting..");
-                        break;
-                    }
+                    System.out.println("Program is now existing..");
                     break;
+
                 default:
                     System.out.println("\nYou have entered a Invalid Input!");
-                    System.out.println("---------------------------------------------\n");
+                    System.out.println("---------------------------------------------");
             }
-
-        } while (true);
+        } while (!userOption.equalsIgnoreCase("q"));
     }
 
     private static void showLoadedData() {
@@ -75,10 +73,12 @@ public class TestData {
             System.out.println(bridgeArr.get(i) + "\t" + ladderArr.get(i));
         }
 
-        System.out.println("\n---------------------------------------------\n");
+        System.out.println("\n---------------------------------------------");
     }
 
     private static void drawGraph() {
+        // declaration and initialise String Array
+        JungGraph.displayGraph(fortFulkerson.getSolution(), VERTICES);
     }
 
     public static void findMaxFlow() {
@@ -92,7 +92,7 @@ public class TestData {
             boolean isContain = false;
             System.out.print("Enter a File Name : ");
             String fileNameInput = sc.next();
-            String fileName = "src/SampleData/" + fileNameInput + ".txt";
+            String fileName = "src/TestData/" + fileNameInput + ".txt";
 
             for (String str : bridgeArr) {
                 if (str.contains(fileNameInput)) {
@@ -148,33 +148,28 @@ public class TestData {
                     graph[ints[0]][ints[1]] = ints[2];
                 }
 
-                System.out.println("\nVERTICES    -> " + VERTICES);
-                System.out.println("FlOW COUNT  -> " + loadedDataArr.size());
-                System.out.println();
+                System.out.println("\nVERTICES -> " + VERTICES);
+                System.out.println("EDGES    -> " + loadedDataArr.size());
 
-                System.out.println("LOADED DATA");
-                for (int[] r : loadedDataArr) {
-                    System.out.println(Arrays.toString(Arrays.stream(r).toArray()));
+                System.out.println("\nGRAPH MATRIX");
+                for (int[] array : graph) {
+                    for (int value : array) {
+                        System.out.print(value + "  ");
+                    }
+                    System.out.println();
                 }
-                System.out.println("\nGRAPH PER EACH VERTICES");
-                for (int i = 0; i < graph.length; i++) {
-                    System.out.println(i + " -> " + Arrays.toString(graph[i]));
-                }
-
-                MaxFlow maxFlow = new MaxFlow();
-                System.out.println("\033[1;93m" + "\nThe maximum possible flow is " + maxFlow.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
-
+                System.out.println("\033[1;93m" + "\nThe maximum possible flow is " + fortFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
             } else {
                 System.out.println("\n" + fileNameInput + ".txt is not a test data file!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\n---------------------------------------------\n");
+        System.out.println("\n---------------------------------------------");
     }
 
     public static void loadTestData() {
-        File folder = new File("src/SampleData");
+        File folder = new File("src/TestData");
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < Objects.requireNonNull(listOfFiles).length; i++) {
