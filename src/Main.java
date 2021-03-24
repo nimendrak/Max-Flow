@@ -17,7 +17,12 @@ public class Main {
 
     // Create a single Scanner instance for whole project
     static Scanner sc = new Scanner(System.in);
+
+    // Store the graph network that created from loadedDataArr data
     static int[][] graph;
+
+    // Validations for test data filenames
+    static boolean isContain = false;
 
     public static void main(String[] args) {
         loadTestData();
@@ -30,8 +35,9 @@ public class Main {
 
         do {
             System.out.println("\nChoose a option, which mentioned below\n");
-            System.out.println("Prompt \"V\" to view loaded test data files");
-            System.out.println("Prompt \"F\" to find Max Flow of test data");
+            System.out.println("Prompt \"V\" to view loaded test data files names");
+            System.out.println("Prompt \"A\" to find Max Flow of all data files");
+            System.out.println("Prompt \"F\" to find Max Flow of a given file");
             System.out.println("Prompt \"G\" to show Max Flow Graph");
             System.out.println("Prompt \"Q\" to exit");
 
@@ -46,7 +52,12 @@ public class Main {
 
                 case "F":
                 case "f":
-                    findMaxFlow();
+                    findMaxFlowForSingle();
+                    break;
+
+                case "A":
+                case "a":
+                    findMaxFlowForMultiple();
                     break;
 
                 case "G":
@@ -93,36 +104,93 @@ public class Main {
      * VERTICES - vertices of the loaded test file
      */
     private static void displayGraph() {
-        SwingUI swingUi = new SwingUI(fortFulkerson.getResidualGraph(), graph, VERTICES);
+        System.out.println("---------------------------------------------");
+
+        System.out.println("\n***************************");
+        System.out.println("\033[1;93m" + "DISPLAY NETWORK FLOW GRAPHS" + "\033[0m");
+        System.out.println("***************************\n");
+
+        new SwingUI(fortFulkerson.getResidualGraph(), graph, VERTICES);
+
+        System.out.println("---------------------------------------------");
     }
 
-    /**
-     * findMaxFlow() read the prompted file, creates the graph and find max flow
-     */
-    public static void findMaxFlow() {
+    public static void findMaxFlowForSingle() {
         System.out.println("---------------------------------------------");
 
         System.out.println("\n*************************************");
         System.out.println("\033[1;93m" + "FIND MAXIMUM FLOW FOR A GIVEN NETWORK" + "\033[0m");
         System.out.println("*************************************\n");
 
-//        if (!loadedDataArr.isEmpty()) {
-//            loadedDataArr.clear();
-//        }
-//        if (graph[0] != null) {
-//            Arrays.fill(graph, null);
-//            graph = null;
-//        }
+        // Get filename from user
+        System.out.print("Enter a File Name : ");
+        String fileNameInput = sc.next();
+        findMaxFlow(fileNameInput, false);
+
+        if (isContain) {
+            if (VERTICES < 15) {
+                System.out.println("\nVERTICES -> " + VERTICES);
+                System.out.println("EDGES    -> " + loadedDataArr.size());
+
+                // Show graph as a character matrix
+                System.out.println("\nGRAPH MATRIX");
+                for (int[] array : graph) {
+                    for (int value : array) {
+                        System.out.print(value + "  ");
+                    }
+                    System.out.println();
+                }
+            } else {
+                System.out.println("\nNetwork Flow is too large to display Graph Matrix!");
+            }
+            isContain = false;
+        }
+        System.out.println("\n---------------------------------------------");
+    }
+
+    public static void findMaxFlowForMultiple() {
+        System.out.println("---------------------------------------------");
+
+        System.out.println("\n****************************************");
+        System.out.println("\033[1;93m" + "FIND MAXIMUM FLOW FOR ALL GIVEN NETWORKS" + "\033[0m");
+        System.out.println("****************************************");
+
+        System.out.println("\n-------- Bridge Test Data Files -------");
+        for (String str : bridgeArr) {
+            findMaxFlow(str, true);
+        }
+        System.out.println("\n-------- Ladder Test Data Files -------");
+        for (String str : ladderArr) {
+            findMaxFlow(str, true);
+        }
+
+        System.out.println("\n---------------------------------------------");
+    }
+
+    /**
+     * findMaxFlow() read the prompted file, creates the graph and find max flow
+     * @param isMultiple check whether user generating max flow for multiples data files
+     * @param fileNameInput if its single file, hold the value of prompted filename
+     */
+    public static void findMaxFlow(String fileNameInput, boolean isMultiple) {
+        String fileName, fileNameStr;
+        if (isMultiple) {
+            fileNameStr = fileNameInput;
+            fileName = "src/TestData/" + fileNameInput;
+        } else {
+            fileNameStr = fileNameInput + ".txt";
+            fileName = "src/TestData/" + fileNameInput + ".txt";
+        }
+
+        if (!loadedDataArr.isEmpty()) {
+            loadedDataArr.clear();
+        }
+        if (graph != null) {
+            Arrays.fill(graph, null);
+            graph = null;
+        }
 
         try {
-            // Validation for text filename
-            boolean isContain = false;
-
-            // Get filename from user
-            System.out.print("Enter a File Name : ");
-            String fileNameInput = sc.next();
-            String fileName = "src/TestData/" + fileNameInput + ".txt";
-
             // Check whether prompted file name valid or not
             // If its valid set isContain to true
             for (int i = 0; i < bridgeArr.size(); i++) {
@@ -137,7 +205,7 @@ public class Main {
             }
 
             if (isContain) {
-                System.out.println("\nSelected Test Data File -> " + "\033[1;93m" + fileNameInput + ".txt" + "\033[0m");
+                System.out.println("\nSelected Test Data File -> " + "\033[1;93m" + fileNameStr + "\033[0m");
                 try {
                     FileReader fileReader = new FileReader(fileName);
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -175,26 +243,13 @@ public class Main {
                 for (int[] ints : loadedDataArr) {
                     graph[ints[0]][ints[1]] = ints[2];
                 }
-
-                System.out.println("\nVERTICES -> " + VERTICES);
-                System.out.println("EDGES    -> " + loadedDataArr.size());
-
-                // Show graph as a character martix
-                System.out.println("\nGRAPH MATRIX");
-                for (int[] array : graph) {
-                    for (int value : array) {
-                        System.out.print(value + "  ");
-                    }
-                    System.out.println();
-                }
-                System.out.println("\033[1;93m" + "\nThe maximum possible flow is " + fortFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
+                System.out.println("The maximum possible flow is " + "\033[1;93m" + fortFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
             } else {
                 System.out.println("\n" + fileNameInput + ".txt is not a test data file!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\n---------------------------------------------");
     }
 
     public static void loadTestData() {
@@ -202,7 +257,7 @@ public class Main {
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < Objects.requireNonNull(listOfFiles).length; i++) {
-            if (listOfFiles[i].isFile()) {
+            if (listOfFiles[i].isFile() & listOfFiles[i].getName().endsWith(".txt")) {
                 if (listOfFiles[i].getName().contains("ladder")) {
                     ladderArr.add(listOfFiles[i].getName());
                 }

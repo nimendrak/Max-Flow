@@ -60,7 +60,6 @@ class FortFulkerson {
     }
 
     public int[][] getResidualGraph() {
-        System.out.println("residualGraph -> " + Arrays.deepToString(residualGraph));
         return residualGraph;
     }
 }
