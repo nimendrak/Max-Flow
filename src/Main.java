@@ -9,8 +9,13 @@ public class Main {
     static List<String> bridgeArr = new ArrayList<>();
     static List<String> ladderArr = new ArrayList<>();
 
+    // loadedDataArr holds the data of a single test data file
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
+
+    // FortFulkerson uses to calculate Max Flow of a given network flow
     static FortFulkerson fortFulkerson = new FortFulkerson();
+
+    // Create a single Scanner instance for whole project
     static Scanner sc = new Scanner(System.in);
     static int[][] graph;
 
@@ -46,7 +51,7 @@ public class Main {
 
                 case "G":
                 case "g":
-                    drawGraph();
+                    displayGraph();
                     break;
 
                 case "q":
@@ -61,6 +66,11 @@ public class Main {
         } while (!userOption.equalsIgnoreCase("q"));
     }
 
+    /**
+     * showLoadedData() displays test data filenames
+     * Two types of test data files available
+     * Ladder, Bridge
+     */
     private static void showLoadedData() {
         System.out.println("---------------------------------------------");
 
@@ -76,11 +86,19 @@ public class Main {
         System.out.println("\n---------------------------------------------");
     }
 
-    private static void drawGraph() {
-        // Launch swing ui
+    /**
+     * displayGraph() launches the Swing UI
+     * fortFulkerson.getResidualGraph() - max flow network
+     * graph - loaded arr of network
+     * VERTICES - vertices of the loaded test file
+     */
+    private static void displayGraph() {
         SwingUI swingUi = new SwingUI(fortFulkerson.getResidualGraph(), graph, VERTICES);
     }
 
+    /**
+     * findMaxFlow() read the prompted file, creates the graph and find max flow
+     */
     public static void findMaxFlow() {
         System.out.println("---------------------------------------------");
 
@@ -97,20 +115,22 @@ public class Main {
 //        }
 
         try {
+            // Validation for text filename
             boolean isContain = false;
+
+            // Get filename from user
             System.out.print("Enter a File Name : ");
             String fileNameInput = sc.next();
             String fileName = "src/TestData/" + fileNameInput + ".txt";
 
-            for (String str : bridgeArr) {
-                if (str.contains(fileNameInput)) {
+            // Check whether prompted file name valid or not
+            // If its valid set isContain to true
+            for (int i = 0; i < bridgeArr.size(); i++) {
+                if (bridgeArr.get(i).contains(fileNameInput)) {
                     isContain = true;
                     break;
                 }
-            }
-
-            for (String str : ladderArr) {
-                if (str.contains(fileNameInput)) {
+                if (ladderArr.get(i).contains(fileNameInput)) {
                     isContain = true;
                     break;
                 }
@@ -123,34 +143,34 @@ public class Main {
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
                     Scanner sc = new Scanner(bufferedReader);
 
+                    // Holds the num of vertices in VERTICES variable
                     VERTICES = Integer.parseInt(sc.nextLine());
 
-                    // Number of ints per line:
+                    // Number of characters per line (row)
                     int width = 3;
 
-                    // While we've got another line..
                     while (sc.hasNextLine()) {
-                        // Setup current row:
+                        // Setup current row
                         int[] row = new int[width];
-                        // For each number..
+                        // For each character
                         for (int i = 0; i < width; i++) {
-                            // Read the number and add it to the current row:
+                            // Read the char and add it to the current row:
                             row[i] = sc.nextInt();
                         }
-                        // Add the row to the dataArr:
+                        // Add the row to the loadedDataArr
                         loadedDataArr.add(row);
-                        // Go to the next line (optional, but helps deal with erroneous input files):
+                        // Go to the next line if it has one
                         if (sc.hasNextLine()) {
-                            // Go to the next line:
                             sc.nextLine();
                         }
                     }
                     sc.close();
 
                 } catch (FileNotFoundException ex) {
-                    System.out.println("Unable to open file: " + fileName);
+                    System.out.println("\nUnable to open file: " + fileName);
                 }
 
+                // Create 2d graph from the loaded data
                 graph = new int[VERTICES][VERTICES];
                 for (int[] ints : loadedDataArr) {
                     graph[ints[0]][ints[1]] = ints[2];
@@ -159,6 +179,7 @@ public class Main {
                 System.out.println("\nVERTICES -> " + VERTICES);
                 System.out.println("EDGES    -> " + loadedDataArr.size());
 
+                // Show graph as a character martix
                 System.out.println("\nGRAPH MATRIX");
                 for (int[] array : graph) {
                     for (int value : array) {

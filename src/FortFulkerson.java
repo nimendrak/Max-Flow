@@ -1,5 +1,3 @@
-// Java program for implementation of Ford Fulkerson algorithm
-
 import java.lang.*;
 import java.util.Arrays;
 
@@ -38,7 +36,7 @@ class FortFulkerson {
         // Augment the flow while there is path from source
         // to sink
         while (BreadFirstSearch.bfs(residualGraph, s, t, parent, VERTICES)) {
-            // Find minimum residual capacity of the edhes
+            // Find minimum residual capacity of the edges
             // along the path filled by BFS. Or we can say
             // find the maximum flow through the path found.
             int path_flow = Integer.MAX_VALUE;
@@ -57,7 +55,6 @@ class FortFulkerson {
             // Add path flow to overall flow
             max_flow += path_flow;
         }
-
         // Return the overall flow
         return max_flow;
     }
