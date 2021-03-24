@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SwingUi {
+public class SwingUI {
     JFrame mainFrame;
     JPanel populateNetwork;
 
@@ -14,7 +14,7 @@ public class SwingUi {
     private int[][] graphMatrix;
     private int vertices;
 
-    public SwingUi(int[][] currentGraphMatrix, int[][] graphMatrix, int vertices) {
+    public SwingUI(int[][] currentGraphMatrix, int[][] graphMatrix, int vertices) {
         this.currentGraphMatrix = currentGraphMatrix;
         this.graphMatrix = graphMatrix;
         this.vertices = vertices;
@@ -60,7 +60,7 @@ public class SwingUi {
     public void displayMatrix(int[][] graphMatrix) {
         populateNetwork = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
         populateNetwork.setSize(800, 600);
-        populateNetwork.setBorder(new EmptyBorder(50, 10, 10, 10));
+        populateNetwork.setBorder(new EmptyBorder(50, 0, 0, 0));
         populateNetwork.setVisible(false);
 
         populateNetwork.removeAll();

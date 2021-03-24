@@ -35,6 +35,8 @@ public class DisplayGraph {
         try {
             String[] arrIndex = new String[ver];
 
+            // Create a String[] to hold vertices
+            // They represents edges of the VisualizationViewer
             for (int i = 0; i < ver; i++) {
                 arrIndex[i] = String.valueOf(i);
             }
@@ -46,15 +48,15 @@ public class DisplayGraph {
             System.out.println("arrIndex len -> " + Arrays.toString(arrIndex));
             System.out.println();
 
-            //Create a new graph object
+            // Create a new graph object
             Graph<String, String> graph = new OrderedSparseMultigraph<String, String>();
 
-            //Add the vertices to the graph
+            // Add the vertices to the graph
             for (String index : arrIndex) {
                 graph.addVertex(index);
             }
 
-            //This list is used to get unique numbers.
+            // This list is used to get unique numbers.
             // The unique numbers are used if there are edges with the same weight
             List<Integer> listOfNumbers = new ArrayList<Integer>();
             for (int i = 0; i < (graphMatrix.length * graphMatrix.length); i++) {
@@ -75,7 +77,6 @@ public class DisplayGraph {
                             for (int x = 0; x <= numOfSpacesBetweenLetters / 2; x++) {
                                 spaces.append(" ");
                             }
-
                             String newWeight = spaces.toString() + graphMatrix[i][j] + spaces;
                             String vertexI = arrIndex[i];
                             String vertexJ = arrIndex[j];
@@ -93,6 +94,7 @@ public class DisplayGraph {
 
             Layout<String, String> layout = new KKLayout<>(graph);
             layout.setSize(new Dimension(650, 650));
+
             VisualizationViewer<String, String> vs = new VisualizationViewer<String, String>(layout);
             vs.setPreferredSize(new Dimension(650, 650));
 
@@ -108,20 +110,19 @@ public class DisplayGraph {
             vs.getRenderContext().setEdgeFontTransformer(fontTransformer);
             vs.getRenderContext().setVertexFontTransformer(fontTransformer);
 
-            //Creates GraphMouse and adds to visualization
-            DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
-            gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
-            vs.setGraphMouse(gm);
+            // creates GraphMouse and adds to visualization
+            DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
+            graphMouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
+            vs.setGraphMouse(graphMouse);
 
-
-            //Colors Vertices
+            // colors vertices
             Transformer<String, Paint> vertexPaintTransformer = new Transformer<String, Paint>() {
                 public Paint transform(String i) {
                     return Color.GREEN;
                 }
             };
 
-            //Renders Vertex colors/labels
+            // Renders colors and labels for each vertices
             vs.getRenderContext().setVertexFillPaintTransformer(vertexPaintTransformer);
             vs.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<>());
             vs.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
@@ -129,11 +130,13 @@ public class DisplayGraph {
             //Renders Edge labels
             vs.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<>());
 
-            //Initialize JFrames
+            // Add VisualizationViewer to JPanel
+            // VisualizationViewer are inherited from JFrames
+            // So, Swing was the only GUI technique that I had to use
             frame.add(vs);
             System.out.println("JFrame returned");
 
-            //Initialize
+            // Return JPanel to the main JFrame
             return frame;
 
         } catch (Exception e) {
