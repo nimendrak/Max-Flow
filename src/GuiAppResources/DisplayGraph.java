@@ -88,10 +88,11 @@ public class DisplayGraph {
             }
 
             Layout<String, String> layout = new KKLayout<>(graph);
-            layout.setSize(new Dimension(650, 650));
+            layout.setSize(new Dimension(800, 600));
 
+            // VisualizationViewer holds the all the vertices and links of the graph
             VisualizationViewer<String, String> vs = new VisualizationViewer<String, String>(layout);
-            vs.setPreferredSize(new Dimension(650, 650));
+            vs.setPreferredSize(new Dimension(800, 600));
 
             Transformer<String, Font> fontTransformer = new Transformer<String, Font>() {
                 @Override
@@ -110,7 +111,7 @@ public class DisplayGraph {
             graphMouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
             vs.setGraphMouse(graphMouse);
 
-            // colors vertices
+            // Painting vertices
             Transformer<String, Paint> vertexPaintTransformer = new Transformer<String, Paint>() {
                 public Paint transform(String i) {
                     return Color.GREEN;
@@ -122,7 +123,7 @@ public class DisplayGraph {
             vs.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<>());
             vs.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
 
-            //Renders Edge labels
+            // Renders Edge labels
             vs.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<>());
 
             // Add VisualizationViewer to JPanel
