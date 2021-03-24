@@ -134,24 +134,24 @@ public class Main {
         findMaxFlow(fileNameInput, false);
 
         if (isContain) {
-            if (VERTICES < 15) {
+            if (VERTICES < 10) {
                 System.out.println("\nVERTICES -> " + VERTICES);
                 System.out.println("EDGES    -> " + loadedDataArr.size());
 
                 // Show graph as a character matrix
-                System.out.println("\nGRAPH MATRIX");
+                System.out.println("\nRESIDUAL GRAPH MATRIX");
                 for (int[] array : graph) {
                     for (int value : array) {
-                        System.out.print(value + "  ");
+                        System.out.print(String.format("%02d", value) + " ");
                     }
                     System.out.println();
                 }
 
                 // Show max flow graph as a character matrix
-                System.out.println("\nRESIDUAL MATRIX");
+                System.out.println("\nMAX FLOW MATRIX");
                 for (int[] array : fortFulkerson.getMaxFlowGraph()) {
                     for (int value : array) {
-                        System.out.print(value + "  ");
+                        System.out.print(String.format("%02d", value) + " ");
                     }
                     System.out.println();
                 }
