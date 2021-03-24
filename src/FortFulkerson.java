@@ -1,8 +1,7 @@
 import java.lang.*;
-import java.util.Arrays;
 
 class FortFulkerson {
-    static int VERTICES; // Number of vertices in graph
+    static int VERTICES;
     int[][] residualGraph;
 
     // Returns tne maximum flow from s to t in the given

@@ -22,11 +22,12 @@ import java.util.List;
 public class DisplayGraph {
     /**
      * This method visualizes a graph
+     * It can be whether Current Network flow or the Solution Network (Max Flow)
      *
      * @param graphMatrix - The graph matrix
      * @param ver         - Loaded Vertices count
      * @param jPanel      - This will be added to the main JFrame
-     * @return
+     * @return - JPanel that has a graph
      */
     public static JPanel displayGraph(int[][] graphMatrix, int ver, JPanel jPanel) {
         FlowPane graphPane = new FlowPane();
@@ -126,7 +127,7 @@ public class DisplayGraph {
 
             // Add VisualizationViewer to JPanel
             // VisualizationViewer are inherited from JFrames
-            // So, Swing was the only GUI technique that I had to use
+            // So, Swing was the only GUI technique that I could to use
             jPanel.add(vs);
 
             // Return JPanel to the main JFrame

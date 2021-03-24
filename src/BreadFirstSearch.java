@@ -2,10 +2,10 @@ import java.util.LinkedList;
 
 public class BreadFirstSearch {
     /*
-    Returns true if there is a path from source 's' to
-    sink 't' in residual graph. Also fills parent[] to
+    Returns true if there is a path from s 'source' to
+    t 'sink' in residual graph. Also fills parent[] to
     store the path */
-    public static boolean bfs(int[][] rGraph, int s, int t, int[] parent, int vertices) {
+    public static boolean bfs(int[][] rGraph, int source, int sink, int[] parent, int vertices) {
         // Create a visited array and mark all vertices as
         // not visited
         boolean[] visited = new boolean[vertices];
@@ -15,9 +15,9 @@ public class BreadFirstSearch {
         // Create a queue, enqueue source vertex and mark
         // source vertex as visited
         LinkedList<Integer> queue = new LinkedList<Integer>();
-        queue.add(s);
-        visited[s] = true;
-        parent[s] = -1;
+        queue.add(source);
+        visited[source] = true;
+        parent[source] = -1;
 
         // Standard BFS Loop
         while (queue.size() != 0) {
@@ -29,7 +29,7 @@ public class BreadFirstSearch {
                     // node, then there is no point in BFS
                     // anymore We just have to set its parent
                     // and can return true
-                    if (v == t) {
+                    if (v == sink) {
                         parent[v] = u;
                         return true;
                     }
@@ -40,7 +40,7 @@ public class BreadFirstSearch {
             }
         }
 
-        // We didn't reach sink in BFS starting from source,
+        // We didn'sink reach sink in BFS starting from source,
         // so return false
         return false;
     }

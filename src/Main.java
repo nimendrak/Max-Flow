@@ -111,10 +111,14 @@ public class Main {
         System.out.println("***************************\n");
 
         new SwingUI(fortFulkerson.getResidualGraph(), graph, VERTICES);
+        System.out.println("UI is launching now..\n");
 
         System.out.println("---------------------------------------------");
     }
 
+    /**
+     * findMaxFlowForSingle() returns max flow for single test data file
+     */
     public static void findMaxFlowForSingle() {
         System.out.println("---------------------------------------------");
 
@@ -125,6 +129,8 @@ public class Main {
         // Get filename from user
         System.out.print("Enter a File Name : ");
         String fileNameInput = sc.next();
+
+        // FindMaxFlow will return the max flow for the inputted test data file
         findMaxFlow(fileNameInput, false);
 
         if (isContain) {
@@ -140,6 +146,15 @@ public class Main {
                     }
                     System.out.println();
                 }
+
+                // Show max flow graph as a character matrix
+                System.out.println("\nRESIDUAL MATRIX");
+                for (int[] array : fortFulkerson.getResidualGraph()) {
+                    for (int value : array) {
+                        System.out.print(value + "  ");
+                    }
+                    System.out.println();
+                }
             } else {
                 System.out.println("\nNetwork Flow is too large to display Graph Matrix!");
             }
@@ -148,6 +163,10 @@ public class Main {
         System.out.println("\n---------------------------------------------");
     }
 
+    /**
+     * findMaxFlowForMultiple() returns all the max flows for
+     * all the data files in TestData directory
+     */
     public static void findMaxFlowForMultiple() {
         System.out.println("---------------------------------------------");
 
@@ -169,6 +188,7 @@ public class Main {
 
     /**
      * findMaxFlow() read the prompted file, creates the graph and find max flow
+     *
      * @param isMultiple check whether user generating max flow for multiples data files
      * @param fileNameInput if its single file, hold the value of prompted filename
      */
@@ -252,6 +272,9 @@ public class Main {
         }
     }
 
+    /**
+     * loadTestData() displays all test data filenames
+     */
     public static void loadTestData() {
         File folder = new File("src/TestData");
         File[] listOfFiles = folder.listFiles();
