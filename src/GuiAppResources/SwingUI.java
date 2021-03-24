@@ -18,8 +18,8 @@ public class SwingUI {
      * SwingUI launches a swing UI to show graphs
      *
      * @param currentGraphMatrix - current network flow
-     * @param graphMatrix - solution network (Max Flow)
-     * @param vertices - num of nodes in each graph
+     * @param graphMatrix        - solution network (Max Flow)
+     * @param vertices           - num of nodes in each graph
      */
     public SwingUI(int[][] currentGraphMatrix, int[][] graphMatrix, int vertices) {
         this.currentGraphMatrix = currentGraphMatrix;
@@ -36,32 +36,36 @@ public class SwingUI {
         ButtonGroup buttonGroup = new ButtonGroup();
         JRadioButton r1 = new JRadioButton("Network Flow");
         JRadioButton r2 = new JRadioButton("Max Flow");
-        r1.setBounds(500, 30, 150, 30);
-        r2.setBounds(625, 30, 150, 30);
+        r1.setBounds(450, 30, 150, 30);
+        r2.setBounds(570, 30, 150, 30);
         buttonGroup.add(r1);
         buttonGroup.add(r2);
 
         JButton generateBtn = new JButton("Generate");//creating instance of JButton
-        generateBtn.setBounds(750, 25, 100, 40);
-        generateBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // r1 -> Network Flow
-                if (r1.isSelected()) {
-                    displayMatrix(graphMatrix);
-                // r2 -> Solution Network Flow (Max Flow)
-                } else {
-                    displayMatrix(currentGraphMatrix);
+        generateBtn.setBounds(675, 25, 100, 40);
+        try {
+            generateBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // r1 -> Network Flow
+                    if (r1.isSelected()) {
+                        displayMatrix(graphMatrix);
+                        // r2 -> Solution Network Flow (Max Flow)
+                    } else {
+                        displayMatrix(currentGraphMatrix);
+                    }
+                    populateNetwork.setVisible(true);
                 }
-                populateNetwork.setVisible(true);
-            }
-        });
+            });
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
 
         mainFrame.add(r1);
         mainFrame.add(r2);
         mainFrame.add(jLabel);
         mainFrame.add(generateBtn);
 
-        mainFrame.setSize(900, 700);
+        mainFrame.setSize(800, 700);
         mainFrame.setLayout(null);
         mainFrame.setVisible(true);
     }
@@ -73,7 +77,7 @@ public class SwingUI {
      */
     public void displayMatrix(int[][] graphMatrix) {
         populateNetwork = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
-        populateNetwork.setSize(800, 600);
+        populateNetwork.setSize(700, 600);
         populateNetwork.setBorder(new EmptyBorder(50, 0, 0, 0));
         populateNetwork.setVisible(false);
 
@@ -82,4 +86,3 @@ public class SwingUI {
         mainFrame.add(populateNetwork);
     }
 }
-

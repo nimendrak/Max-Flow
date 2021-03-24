@@ -135,7 +135,7 @@ public class DisplayGraph {
             return jPanel;
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         return null;
     }

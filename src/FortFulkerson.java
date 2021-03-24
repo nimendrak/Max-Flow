@@ -1,13 +1,18 @@
 import java.lang.*;
+import java.util.Arrays;
 
 class FortFulkerson {
     static int VERTICES;
-    int[][] residualGraph;
+    private int[][] maxFlowGraph;
+
+    static int[][] graphMatrix;
+    static int[][] residualGraph;
 
     // Returns tne maximum flow from s to t in the given
     // graph
-    int fordFulkerson(int ver, int[][] graphMatrix, int s, int t) {
+    int fordFulkerson(int ver, int[][] graph, int s, int t) {
         VERTICES = ver;
+        graphMatrix = graph;
         int u, v;
 
         // Create a residual graph and fill the residual
@@ -23,7 +28,7 @@ class FortFulkerson {
 
         for (u = 0; u < VERTICES; u++) {
             for (v = 0; v < VERTICES; v++) {
-                residualGraph[u][v] = graphMatrix[u][v];
+                residualGraph[u][v] = graph[u][v];
             }
         }
 
@@ -58,7 +63,22 @@ class FortFulkerson {
         return max_flow;
     }
 
-    public int[][] getResidualGraph() {
-        return residualGraph;
+    public int[][] getMaxFlowGraph() {
+        int[][] graphMatrixTemp = graphMatrix;
+        int[][] residualGraphTemp = residualGraph;
+
+        maxFlowGraph = new int[VERTICES][VERTICES];
+
+        for (int i = 0; i < VERTICES; i++) {
+            for (int j = 0; j < VERTICES; j++) {
+                if (graphMatrixTemp[i][j] > 0) {
+                    int weight = graphMatrixTemp[i][j] - residualGraphTemp[i][j];
+                    if (weight > 0) {
+                        maxFlowGraph[i][j] = weight;
+                    }
+                }
+            }
+        }
+        return maxFlowGraph;
     }
 }

@@ -110,7 +110,7 @@ public class Main {
         System.out.println("\033[1;93m" + "DISPLAY NETWORK FLOW GRAPHS" + "\033[0m");
         System.out.println("***************************\n");
 
-        new SwingUI(fortFulkerson.getResidualGraph(), graph, VERTICES);
+        new SwingUI(fortFulkerson.getMaxFlowGraph(), graph, VERTICES);
         System.out.println("UI is launching now..\n");
 
         System.out.println("---------------------------------------------");
@@ -149,7 +149,7 @@ public class Main {
 
                 // Show max flow graph as a character matrix
                 System.out.println("\nRESIDUAL MATRIX");
-                for (int[] array : fortFulkerson.getResidualGraph()) {
+                for (int[] array : fortFulkerson.getMaxFlowGraph()) {
                     for (int value : array) {
                         System.out.print(value + "  ");
                     }
