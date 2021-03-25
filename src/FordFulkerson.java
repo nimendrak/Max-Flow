@@ -1,41 +1,39 @@
 import java.lang.*;
-import java.util.Arrays;
 
-class FortFulkerson {
+class FordFulkerson {
     static int VERTICES;
-    private int[][] maxFlowGraph;
 
     static int[][] graphMatrix;
     static int[][] residualGraph;
 
-    // Returns tne maximum flow from s to t in the given
-    // graph
+    /**
+     * Returns the maximum flow from s to t in the given graph
+     *
+     * @param ver   - num of vertex in the graph
+     * @param graph - graph as in 2d arr (original graph)
+     * @param s     - starting vertices
+     * @param t     - ending vertices
+     * @return - max flow of the given graph accordingly to the path
+     */
     int fordFulkerson(int ver, int[][] graph, int s, int t) {
         VERTICES = ver;
         graphMatrix = graph;
-        int u, v;
 
-        // Create a residual graph and fill the residual
-        // graph with given capacities in the original graph
-        // as residual capacities in residual graph
-
-        // Residual graph where rGraph[i][j] indicates
-        // residual capacity of edge from i to j (if there
-        // is an edge. If rGraph[i][j] is 0, then there is
-        // not)
-
+        // Create a residual graph
+        // fill the graph with given capacities/ weights
+        // from the original graph
         residualGraph = new int[VERTICES][VERTICES];
 
-        for (u = 0; u < VERTICES; u++) {
-            for (v = 0; v < VERTICES; v++) {
-                residualGraph[u][v] = graph[u][v];
-            }
+        // Residual graph gets a copy of the original graph
+        for (int i = 0; i < VERTICES; i++) {
+            System.arraycopy(graph[i], 0, residualGraph[i], 0, VERTICES);
         }
 
-        // This array is filled by BFS and to store path
+        // This array is filled by BFS and to store all possible paths
         int[] parent = new int[VERTICES];
 
-        int max_flow = 0; // There is no flow initially
+        // At the beginning of the process, there is no flow
+        int max_flow = 0;
 
         // Augment the flow while there is path from source
         // to sink
@@ -44,34 +42,41 @@ class FortFulkerson {
             // along the path filled by BFS. Or we can say
             // find the maximum flow through the path found.
             int path_flow = Integer.MAX_VALUE;
-            for (v = t; v != s; v = parent[v]) {
-                u = parent[v];
-                path_flow = Math.min(path_flow, residualGraph[u][v]);
+            for (int j = t; j != s; j = parent[j]) {
+                int i = parent[j];
+                path_flow = Math.min(path_flow, residualGraph[i][j]);
             }
-
             // update residual capacities of the edges and
             // reverse edges along the path
-            for (v = t; v != s; v = parent[v]) {
-                u = parent[v];
-                residualGraph[u][v] -= path_flow;
-                residualGraph[v][u] += path_flow;
+            for (int j = t; j != s; j = parent[j]) {
+                int i = parent[j];
+                residualGraph[i][j] -= path_flow;
+                residualGraph[j][i] += path_flow;
             }
             // Add path flow to overall flow
             max_flow += path_flow;
         }
-        // Return the overall flow
+        // Return the max flow
         return max_flow;
     }
 
+    /**
+     * Creates a solution graph from the graph
+     * that calculates the max flow
+     *
+     * @return solution graph
+     */
     public int[][] getMaxFlowGraph() {
         int[][] graphMatrixTemp = graphMatrix;
         int[][] residualGraphTemp = residualGraph;
 
-        maxFlowGraph = new int[VERTICES][VERTICES];
+        // Store data of the solution graph
+        int[][] maxFlowGraph = new int[VERTICES][VERTICES];
 
         for (int i = 0; i < VERTICES; i++) {
             for (int j = 0; j < VERTICES; j++) {
                 if (graphMatrixTemp[i][j] > 0) {
+                    // weight - Capacity of the path
                     int weight = graphMatrixTemp[i][j] - residualGraphTemp[i][j];
                     if (weight > 0) {
                         maxFlowGraph[i][j] = weight;

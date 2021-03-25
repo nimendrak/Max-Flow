@@ -17,12 +17,12 @@ public class SwingUI {
     /**
      * SwingUI launches a swing UI to show graphs
      *
-     * @param currentGraphMatrix - current network flow
-     * @param graphMatrix        - solution network (Max Flow)
-     * @param vertices           - num of nodes in each graph
+     * @param solutionGraphMatrix - current network flow
+     * @param graphMatrix - solution network (Max Flow)
+     * @param vertices - num of nodes in each graph
      */
-    public SwingUI(int[][] currentGraphMatrix, int[][] graphMatrix, int vertices) {
-        this.currentGraphMatrix = currentGraphMatrix;
+    public SwingUI(int[][] solutionGraphMatrix, int[][] graphMatrix, int vertices) {
+        this.currentGraphMatrix = solutionGraphMatrix;
         this.graphMatrix = graphMatrix;
         this.vertices = vertices;
 
@@ -47,11 +47,13 @@ public class SwingUI {
             generateBtn.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // r1 -> Network Flow
+                    // r2 -> Solution Network Flow (Max Flow)
                     if (r1.isSelected()) {
+                        System.out.println("r1 selected");
                         displayMatrix(graphMatrix);
-                        // r2 -> Solution Network Flow (Max Flow)
                     } else {
-                        displayMatrix(currentGraphMatrix);
+                        System.out.println("r2 selected");
+                        displayMatrix(solutionGraphMatrix);
                     }
                     populateNetwork.setVisible(true);
                 }

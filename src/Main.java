@@ -4,8 +4,10 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    // Num of vertex in the graph
     static int VERTICES = 0;
 
+    // Store names of the test data files
     static List<String> bridgeArr = new ArrayList<>();
     static List<String> ladderArr = new ArrayList<>();
 
@@ -13,7 +15,7 @@ public class Main {
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
 
     // FortFulkerson uses to calculate Max Flow of a given network flow
-    static FortFulkerson fortFulkerson = new FortFulkerson();
+    static FordFulkerson fordFulkerson = new FordFulkerson();
 
     // Create a single Scanner instance for whole project
     static Scanner sc = new Scanner(System.in);
@@ -62,7 +64,7 @@ public class Main {
 
                 case "G":
                 case "g":
-                    displayGraph();
+                    launchSwingUi();
                     break;
 
                 case "q":
@@ -103,14 +105,14 @@ public class Main {
      * graph - loaded arr of network
      * VERTICES - vertices of the loaded test file
      */
-    private static void displayGraph() {
+    private static void launchSwingUi() {
         System.out.println("---------------------------------------------");
 
         System.out.println("\n***************************");
         System.out.println("\033[1;93m" + "DISPLAY NETWORK FLOW GRAPHS" + "\033[0m");
         System.out.println("***************************\n");
 
-        new SwingUI(fortFulkerson.getMaxFlowGraph(), graph, VERTICES);
+        new SwingUI(fordFulkerson.getMaxFlowGraph(), graph, VERTICES);
         System.out.println("UI is launching now..\n");
 
         System.out.println("---------------------------------------------");
@@ -149,7 +151,7 @@ public class Main {
 
                 // Show max flow graph as a character matrix
                 System.out.println("\nMAX FLOW MATRIX");
-                for (int[] array : fortFulkerson.getMaxFlowGraph()) {
+                for (int[] array : fordFulkerson.getMaxFlowGraph()) {
                     for (int value : array) {
                         System.out.print(String.format("%02d", value) + " ");
                     }
@@ -194,6 +196,8 @@ public class Main {
      */
     public static void findMaxFlow(String fileNameInput, boolean isMultiple) {
         String fileName, fileNameStr;
+
+        // get filename and amend it to file dir name
         if (isMultiple) {
             fileNameStr = fileNameInput;
             fileName = "src/TestData/" + fileNameInput;
@@ -202,6 +206,7 @@ public class Main {
             fileName = "src/TestData/" + fileNameInput + ".txt";
         }
 
+        // clear both loadedDataArr and graph before populating again
         if (!loadedDataArr.isEmpty()) {
             loadedDataArr.clear();
         }
@@ -263,7 +268,7 @@ public class Main {
                 for (int[] ints : loadedDataArr) {
                     graph[ints[0]][ints[1]] = ints[2];
                 }
-                System.out.println("The maximum possible flow is " + "\033[1;93m" + fortFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
+                System.out.println("The maximum possible flow is " + "\033[1;93m" + fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
             } else {
                 System.out.println("\n" + fileNameInput + ".txt is not a test data file!");
             }
@@ -276,6 +281,8 @@ public class Main {
      * loadTestData() displays all test data filenames
      */
     public static void loadTestData() {
+        // All the files in TestData dir put into an Arr
+        // Split them into two different arrays accordingly
         File folder = new File("src/TestData");
         File[] listOfFiles = folder.listFiles();
 
@@ -289,6 +296,7 @@ public class Main {
                 }
             }
         }
+        // Sort them after inserting
         Collections.sort(bridgeArr);
         Collections.sort(ladderArr);
     }
