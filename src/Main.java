@@ -3,6 +3,12 @@ import GuiAppResources.SwingUI;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Name - Nimendra Kariyawasam
+ * IIT Student ID - 2019264
+ * UOW Student ID - w1761259
+ */
+
 public class Main {
     // Num of vertex in the graph
     static int VERTICES = 0;

@@ -19,6 +19,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Name - Nimendra Kariyawasam
+ * IIT Student ID - 2019264
+ * UOW Student ID - w1761259
+ */
+
 public class DisplayGraph {
     /**
      * This method visualizes a graph

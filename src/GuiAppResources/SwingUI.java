@@ -6,6 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Name - Nimendra Kariyawasam
+ * IIT Student ID - 2019264
+ * UOW Student ID - w1761259
+ */
+
 public class SwingUI {
     JFrame mainFrame;
     JPanel populateNetwork;

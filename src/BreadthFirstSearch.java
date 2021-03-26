@@ -1,5 +1,11 @@
 import java.util.LinkedList;
 
+/**
+ * Name - Nimendra Kariyawasam
+ * IIT Student ID - 2019264
+ * UOW Student ID - w1761259
+ */
+
 public class BreadthFirstSearch {
     /**
      * bfs() check whether is a valid path or not
