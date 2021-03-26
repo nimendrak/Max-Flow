@@ -1,3 +1,4 @@
+import GuiAppResources.MaxFlowAnalysis;
 import GuiAppResources.SwingUI;
 
 import java.io.*;
@@ -16,6 +17,9 @@ public class Main {
     // Store names of the test data files
     static List<String> bridgeArr = new ArrayList<>();
     static List<String> ladderArr = new ArrayList<>();
+
+    static List<Integer> numOfVertices = new ArrayList<>();
+    static List<Integer> timeDifferList = new ArrayList<>();
 
     // loadedDataArr holds the data of a single test data file
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
@@ -73,6 +77,11 @@ public class Main {
                     launchSwingUi();
                     break;
 
+                case "T":
+                case "t":
+                    getAnalysisOfAlgo();
+                    break;
+
                 case "q":
                 case "Q":
                     System.out.println("Program is now existing..");
@@ -83,6 +92,14 @@ public class Main {
                     System.out.println("---------------------------------------------");
             }
         } while (!userOption.equalsIgnoreCase("q"));
+    }
+
+    private static void getAnalysisOfAlgo() {
+        for (String str : ladderArr) {
+            findMaxFlow(str, true, true);
+        }
+
+        MaxFlowAnalysis frame = new MaxFlowAnalysis(timeDifferList, numOfVertices);
     }
 
     /**
@@ -138,8 +155,9 @@ public class Main {
         System.out.print("Enter a File Name : ");
         String fileNameInput = sc.next();
 
+        System.out.println();
         // FindMaxFlow will return the max flow for the inputted test data file
-        findMaxFlow(fileNameInput, false);
+        findMaxFlow(fileNameInput, false, false);
 
         if (isContain) {
             if (VERTICES < 10) {
@@ -182,13 +200,13 @@ public class Main {
         System.out.println("\033[1;93m" + "FIND MAXIMUM FLOW FOR ALL GIVEN NETWORKS" + "\033[0m");
         System.out.println("****************************************");
 
-        System.out.println("\n-------- Bridge Test Data Files -------");
+        System.out.println("\n--------- Bridge Test Data Files --------\n");
         for (String str : bridgeArr) {
-            findMaxFlow(str, true);
+            findMaxFlow(str, true, false);
         }
-        System.out.println("\n-------- Ladder Test Data Files -------");
+        System.out.println("\n--------- Ladder Test Data Files --------\n");
         for (String str : ladderArr) {
-            findMaxFlow(str, true);
+            findMaxFlow(str, true, false);
         }
 
         System.out.println("\n---------------------------------------------");
@@ -196,11 +214,12 @@ public class Main {
 
     /**
      * findMaxFlow() read the prompted file, creates the graph and find max flow
+     * Also, it will show the execution time for each computation
      *
-     * @param isMultiple check whether user generating max flow for multiples data files
+     * @param isMultiple    check whether user generating max flow for multiples data files
      * @param fileNameInput if its single file, hold the value of prompted filename
      */
-    public static void findMaxFlow(String fileNameInput, boolean isMultiple) {
+    public static void findMaxFlow(String fileNameInput, boolean isMultiple, boolean isAnalysis) {
         String fileName, fileNameStr;
 
         // get filename and amend it to file dir name
@@ -235,8 +254,10 @@ public class Main {
                 }
             }
 
-            if (isContain) {
-                System.out.println("\nSelected Test Data File -> " + "\033[1;93m" + fileNameStr + "\033[0m");
+            if (isContain | isAnalysis) {
+                if (!isAnalysis) {
+                    System.out.println("Selected Test Data File   -> " + "\033[1;93m" + fileNameStr + "\033[0m");
+                }
                 try {
                     FileReader fileReader = new FileReader(fileName);
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -244,6 +265,9 @@ public class Main {
 
                     // Holds the num of vertices in VERTICES variable
                     VERTICES = Integer.parseInt(sc.nextLine());
+                    if (isAnalysis) {
+                        numOfVertices.add(VERTICES);
+                    }
 
                     // Number of characters per line (row)
                     int width = 3;
@@ -274,7 +298,25 @@ public class Main {
                 for (int[] ints : loadedDataArr) {
                     graph[ints[0]][ints[1]] = ints[2];
                 }
-                System.out.println("The maximum possible flow is " + "\033[1;93m" + fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
+
+                // Get sys time in ms once before the computation
+                long startTime = System.currentTimeMillis();
+
+                System.out.println("The maximum possible flow -> " + "\033[1;93m" + fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
+
+                // Get sys time in ms once after the computation
+                long endTime = System.currentTimeMillis();
+
+                // Hold differ in a variable
+                long timeDiffer = (endTime - startTime);
+
+                if (isAnalysis) {
+                    timeDifferList.add((int) timeDiffer);
+                }
+
+                // Show total execution time for analysis
+                System.out.println("Total execution time      -> " + timeDiffer + "ms");
+                System.out.println("-----------------------------------------");
             } else {
                 System.out.println("\n" + fileNameInput + ".txt is not a test data file!");
             }
