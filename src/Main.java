@@ -50,6 +50,7 @@ public class Main {
             System.out.println("Prompt \"V\" to view loaded test data files names");
             System.out.println("Prompt \"A\" to find Max Flow of all data files");
             System.out.println("Prompt \"F\" to find Max Flow of a given file");
+            System.out.println("Prompt \"T\" to analyse Max Flow Performance");
             System.out.println("Prompt \"G\" to show Max Flow Graph");
             System.out.println("Prompt \"Q\" to exit");
 
@@ -94,11 +95,26 @@ public class Main {
         } while (!userOption.equalsIgnoreCase("q"));
     }
 
+    /**
+     * getAnalysisOfAlgo() launches a swing ui which shows the analysis graph
+     * x axis - consumed time (ms) to find max flow of each graph
+     * y axis - total number of vertices of each graph
+     */
     private static void getAnalysisOfAlgo() {
+        System.out.println("---------------------------------------------");
+
+        System.out.println("\n**************************");
+        System.out.println("\033[1;93m" + "ANALYSE MAX FLOW ALGORITHM" + "\033[0m");
+        System.out.println("**************************\n");
+
+        System.out.println("Ladder text files data will used to draw the graph");
+
         for (String str : ladderArr) {
             findMaxFlow(str, true, true);
         }
         new MaxFlowAnalysis(timeDifferList, numOfVertices);
+
+        System.out.println("\n---------------------------------------------");
     }
 
     /**
@@ -208,6 +224,7 @@ public class Main {
             findMaxFlow(str, true, false);
         }
 
+        System.out.println("\nComputed total of " + (bridgeArr.size() + ladderArr.size()) + " test data files data!");
         System.out.println("\n---------------------------------------------");
     }
 
@@ -301,7 +318,8 @@ public class Main {
                 // Get sys time in ms once before the computation
                 long startTime = System.currentTimeMillis();
 
-                System.out.println("The maximum possible flow -> " + "\033[1;93m" + fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1)) + "\033[0m");
+                // Computes max flow and store it in variable
+                int maxFlow = fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1));
 
                 // Get sys time in ms once after the computation
                 long endTime = System.currentTimeMillis();
@@ -311,11 +329,12 @@ public class Main {
 
                 if (isAnalysis) {
                     timeDifferList.add(timeDiffer);
+                } else {
+                    // Show total execution time for analysis
+                    System.out.println("The maximum possible flow -> " + "\033[1;93m" + maxFlow + "\033[0m");
+                    System.out.println("Total execution time      -> " + timeDiffer + "ms");
+                    System.out.println("-----------------------------------------");
                 }
-
-                // Show total execution time for analysis
-                System.out.println("Total execution time      -> " + timeDiffer + "ms");
-                System.out.println("-----------------------------------------");
             } else {
                 System.out.println("\n" + fileNameInput + ".txt is not a test data file!");
             }
