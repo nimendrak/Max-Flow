@@ -19,7 +19,7 @@ public class Main {
     static List<String> ladderArr = new ArrayList<>();
 
     static List<Integer> numOfVertices = new ArrayList<>();
-    static List<Integer> timeDifferList = new ArrayList<>();
+    static List<Long> timeDifferList = new ArrayList<>();
 
     // loadedDataArr holds the data of a single test data file
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
@@ -98,8 +98,7 @@ public class Main {
         for (String str : ladderArr) {
             findMaxFlow(str, true, true);
         }
-
-        MaxFlowAnalysis frame = new MaxFlowAnalysis(timeDifferList, numOfVertices);
+        new MaxFlowAnalysis(timeDifferList, numOfVertices);
     }
 
     /**
@@ -307,11 +306,11 @@ public class Main {
                 // Get sys time in ms once after the computation
                 long endTime = System.currentTimeMillis();
 
-                // Hold differ in a variable
-                long timeDiffer = (endTime - startTime);
+                // Store difference in a variable
+                long timeDiffer = endTime - startTime;
 
                 if (isAnalysis) {
-                    timeDifferList.add((int) timeDiffer);
+                    timeDifferList.add(timeDiffer);
                 }
 
                 // Show total execution time for analysis
