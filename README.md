@@ -17,4 +17,4 @@ In order to find the maximum flow of a given network project contains the Residu
     │       └── Main.java                 # CLI application that can be used to computes Max Flow and invoke UI applicaiton
  
 ## Important Notes
-* In order to run the project, you need to import all the 5 jar files that store in the lib folder to the project.
+* In order to run the project, you need to import all jar files that store in the lib folder to the project.
