@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class BreadFirstSearch {
+public class BreadthFirstSearch {
     /**
      * bfs() check whether is a valid path or not
      *

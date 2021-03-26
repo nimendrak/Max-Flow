@@ -49,10 +49,8 @@ public class SwingUI {
                     // r1 -> Network Flow
                     // r2 -> Solution Network Flow (Max Flow)
                     if (r1.isSelected()) {
-                        System.out.println("r1 selected");
                         displayMatrix(graphMatrix);
                     } else {
-                        System.out.println("r2 selected");
                         displayMatrix(solutionGraphMatrix);
                     }
                     populateNetwork.setVisible(true);

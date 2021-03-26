@@ -97,8 +97,7 @@ public class DisplayGraph {
             Transformer<String, Font> fontTransformer = new Transformer<String, Font>() {
                 @Override
                 public Font transform(String string) {
-                    Font font = new Font("Arial", Font.BOLD, 15);
-                    return font;
+                    return new Font("Arial", Font.BOLD, 15);
                 }
             };
 
