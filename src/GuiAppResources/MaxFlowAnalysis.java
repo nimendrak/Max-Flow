@@ -45,15 +45,14 @@ public class MaxFlowAnalysis extends JFrame {
                 false
         );
 
-        // Due to low amount of data graphs has been set to y = mx graph
-        // Otherwise you can expect a y = mxˆ3 graph
+        // Render the graph curve
         chart.getXYPlot().setRenderer(new XYSplineRenderer());
         ChartPanel chartPanel = new ChartPanel(chart);
 
         jPanel.add(chartPanel);
         jFrame.add(jPanel);
 
-        jFrame.setSize(680, 450);
+        jFrame.setSize(700, 450);
         jFrame.setBackground(Color.WHITE);
 
         jFrame.setVisible(true);
