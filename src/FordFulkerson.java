@@ -66,6 +66,13 @@ class FordFulkerson {
     }
 
     /**
+     * @return - residual graph (before augmenting max flow paths)
+     */
+    public int[][] getResidualMatrix() {
+        return residualGraph;
+    }
+
+    /**
      * Creates a solution graph from the graph
      * that calculates the max flow
      *

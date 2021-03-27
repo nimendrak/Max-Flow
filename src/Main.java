@@ -153,8 +153,12 @@ public class Main {
         System.out.println("\033[1;93m" + "DISPLAY NETWORK FLOW GRAPHS" + "\033[0m");
         System.out.println("***************************\n");
 
-        new SwingUI(fordFulkerson.getMaxFlowGraph(), graph, VERTICES);
-        System.out.println("UI is launching now..\n");
+        if (graph != null) {
+            System.out.println("Collecting most recent computed Max Flow data..\n");
+            new SwingUI(fordFulkerson.getMaxFlowGraph(), graph, VERTICES);
+        } else {
+            System.out.println("*** Please find a Max Flow by " + "\033[1;93m" + "Prompting F" + "\033[0m" + " ***\n");
+        }
 
         System.out.println("---------------------------------------------");
     }
@@ -182,9 +186,9 @@ public class Main {
                 System.out.println("\nVERTICES -> " + VERTICES);
                 System.out.println("EDGES    -> " + loadedDataArr.size());
 
-                // Show graph as a character matrix
-                System.out.println("\nRESIDUAL GRAPH MATRIX");
-                for (int[] array : graph) {
+                // Show residual graph as a character matrix
+                System.out.println("\nRESIDUAL MATRIX");
+                for (int[] array : fordFulkerson.getResidualMatrix()) {
                     for (int value : array) {
                         System.out.print(String.format("%02d", value) + " ");
                     }
@@ -203,6 +207,7 @@ public class Main {
                 System.out.println("\nNetwork Flow is too large to display Graph Matrix!");
             }
             isContain = false;
+            System.out.println("\n******* " + "\033[1;93m" + "Prompt G" + "\033[0m" + " to display the graph *******");
         }
         System.out.println("\n---------------------------------------------");
     }
