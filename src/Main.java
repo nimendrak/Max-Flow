@@ -40,6 +40,7 @@ public class Main {
     static boolean isContain = false;
 
     public static void main(String[] args) {
+        // Load test data files names to arrays
         loadTestData();
 
         String userOption;

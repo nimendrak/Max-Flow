@@ -10,14 +10,14 @@ public class BreadthFirstSearch {
     /**
      * bfs() check whether is a valid path or not
      *
-     * @param rGraph   - Residual graph
+     * @param residualGraph   - Residual graph
      * @param source   - Staring vertices
      * @param sink     - Ending vertices
      * @param parent   - This array is filled by BFS and to store path
      * @param vertices - Num of vertex the in the graph
      * @return - True if there is a path from 'source' to 'sink' in the given residual graph
      */
-    public static boolean bfs(int[][] rGraph, int source, int sink, int[] parent, int vertices) {
+    public static boolean bfs(int[][] residualGraph, int source, int sink, int[] parent, int vertices) {
         // Initialize a visitedArr array and mark all the vertices as not visitedArr
         // This will be changed once the bfs loop travers
         boolean[] visitedArr = new boolean[vertices];
@@ -37,7 +37,7 @@ public class BreadthFirstSearch {
             int u = queue.poll();
 
             for (int i = 0; i < vertices; i++) {
-                if (!visitedArr[i] && rGraph[u][i] > 0) {
+                if (!visitedArr[i] && residualGraph[u][i] > 0) {
                     // If the loop find a connection to the sink node
                     // then return true
                     if (i == sink) {
