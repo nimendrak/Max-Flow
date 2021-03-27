@@ -3,7 +3,8 @@
 In order to find the maximum flow of a given network project contains the Residual Graph Approach and the algorithm that used to compute Max Flow was Ford-Fulkerson Algorithm (Edmond-Karp Implementation).
 
 ## Essential Directory Layout
-    
+
+    .
     ├── lib                           # JUNG and jFreeChart jars that used to generate graphs
     └── src                           # Contains Source files of the project
         ├── GuiAppResources           # Resource files of the UI applicaiton
