@@ -5,8 +5,8 @@ In order to find the maximum flow of a given network project contains the Residu
 ## Essential Directory Layout
 
     .
-    │   ├── lib                           # JUNG libs that used to generate graphs
-    │   └── src                           # Source files of the project
+    │   ├── lib                           # JUNG and jFreeChart jars that used to generate graphs
+    │   └── src                           # Contains Source files of the project
     │       ├── GuiAppResources           # Resource files of the UI applicaiton
     │       │   ├── DisplayGraph.java     # Generate graphs and returns a JPanel to the main JFrame
     │       │   ├── MaxFlowAnalysis.java  # Display performace analysis of Max Flow by XY graph

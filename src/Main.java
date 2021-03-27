@@ -18,8 +18,11 @@ public class Main {
     static List<String> bridgeArr = new ArrayList<>();
     static List<String> ladderArr = new ArrayList<>();
 
+    // Num of vertices in each graph
     static List<Integer> numOfVertices = new ArrayList<>();
-    static List<Long> timeDifferList = new ArrayList<>();
+
+    // Time to execution to find Max Flow of each graph
+    static List<Long> executionTime = new ArrayList<>();
 
     // loadedDataArr holds the data of a single test data file
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
@@ -112,7 +115,7 @@ public class Main {
         for (String str : ladderArr) {
             findMaxFlow(str, true, true);
         }
-        new MaxFlowAnalysis(timeDifferList, numOfVertices);
+        new MaxFlowAnalysis(executionTime, numOfVertices);
 
         System.out.println("\n---------------------------------------------");
     }
@@ -328,7 +331,7 @@ public class Main {
                 long timeDiffer = endTime - startTime;
 
                 if (isAnalysis) {
-                    timeDifferList.add(timeDiffer);
+                    executionTime.add(timeDiffer);
                 } else {
                     // Show total execution time for analysis
                     System.out.println("The maximum possible flow -> " + "\033[1;93m" + maxFlow + "\033[0m");
