@@ -23,9 +23,9 @@ public class SwingUI {
     /**
      * SwingUI launches a swing UI to show graphs
      *
-     * @param solutionGraphMatrix - current network flow
-     * @param graphMatrix - solution network (Max Flow)
-     * @param vertices - num of nodes in each graph
+     * @param solutionGraphMatrix current network flow
+     * @param graphMatrix solution network (Max Flow)
+     * @param vertices num of nodes in each graph
      */
     public SwingUI(int[][] solutionGraphMatrix, int[][] graphMatrix, int vertices) {
         this.currentGraphMatrix = solutionGraphMatrix;
@@ -79,7 +79,7 @@ public class SwingUI {
     /**
      * displayMatrix() shows the graphs that generated from JUNG lib
      *
-     * @param graphMatrix - can be Network Flow or Max Flow
+     * @param graphMatrix can be Network Flow or Max Flow
      */
     public void displayMatrix(int[][] graphMatrix) {
         populateNetwork = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));

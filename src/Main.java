@@ -155,7 +155,7 @@ public class Main {
         System.out.println("***************************\n");
 
         if (graph != null) {
-            System.out.println("Collecting most recent computed Max Flow data..\n");
+            System.out.println("Collecting most recent computed Max Flow data\n");
             new SwingUI(fordFulkerson.getMaxFlowGraph(), graph, VERTICES);
         } else {
             System.out.println("*** Please find a Max Flow by " + "\033[1;93m" + "Prompting F" + "\033[0m" + " ***\n");
@@ -183,10 +183,10 @@ public class Main {
         findMaxFlow(fileNameInput, false, false);
 
         if (isContain) {
-            if (VERTICES < 10) {
-                System.out.println("\nVERTICES -> " + VERTICES);
-                System.out.println("EDGES    -> " + loadedDataArr.size());
+            System.out.println("\nVERTICES -> " + VERTICES);
+            System.out.println("EDGES    -> " + loadedDataArr.size());
 
+            if (VERTICES < 10) {
                 // Show residual graph as a character matrix
                 System.out.println("\nRESIDUAL MATRIX");
                 for (int[] array : fordFulkerson.getResidualMatrix()) {
@@ -283,6 +283,7 @@ public class Main {
                 if (!isAnalysis) {
                     System.out.println("Selected Test Data File   -> " + "\033[1;93m" + fileNameStr + "\033[0m");
                 }
+
                 try {
                     FileReader fileReader = new FileReader(fileName);
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -325,13 +326,13 @@ public class Main {
                 }
 
                 // Get sys time in ms once before the computation
-                long startTime = System.currentTimeMillis();
+                long startTime = System.nanoTime();
 
                 // Computes max flow and store it in variable
                 int maxFlow = fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1));
 
                 // Get sys time in ms once after the computation
-                long endTime = System.currentTimeMillis();
+                long endTime = System.nanoTime();
 
                 // Store difference in a variable
                 long timeDiffer = endTime - startTime;
@@ -341,7 +342,7 @@ public class Main {
                 } else {
                     // Show total execution time for analysis
                     System.out.println("The maximum possible flow -> " + "\033[1;93m" + maxFlow + "\033[0m");
-                    System.out.println("Total execution time      -> " + timeDiffer + "ms");
+                    System.out.println("Total execution time      -> " + (timeDiffer/1000000) + "ms");
                     System.out.println("-----------------------------------------");
                 }
             } else {

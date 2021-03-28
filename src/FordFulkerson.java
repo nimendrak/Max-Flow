@@ -13,15 +13,15 @@ class FordFulkerson {
     static int[][] residualGraph;
 
     /**
-     * Returns the maximum flow from s to t in the given graph
+     * Returns the maximum flow from source to sink in the given graph
      *
-     * @param ver   - num of vertex in the graph
-     * @param graph - graph as in 2d arr (original graph)
-     * @param s     - starting vertices
-     * @param t     - ending vertices
-     * @return - max flow of the given graph accordingly to the path
+     * @param ver    num of vertex in the graph
+     * @param graph  graph as in 2d arr (original graph)
+     * @param source    starting vertices
+     * @param sink      ending vertices
+     * @return max flow of the given graph accordingly to the path
      */
-    int fordFulkerson(int ver, int[][] graph, int s, int t) {
+    int fordFulkerson(int ver, int[][] graph, int source, int sink) {
         VERTICES = ver;
         graphMatrix = graph;
 
@@ -42,18 +42,18 @@ class FordFulkerson {
         int max_flow = 0;
 
         // Augment the flow while there is path from source to sink
-        while (BreadthFirstSearch.bfs(residualGraph, s, t, parent, VERTICES)) {
+        while (BreadthFirstSearch.bfs(residualGraph, source, sink, parent, VERTICES)) {
             // Find minimum residual capacity of the edges
             // along the path filled by BFS. Or we can say
             // find the maximum flow through the path found
             int path_flow = Integer.MAX_VALUE;
-            for (int j = t; j != s; j = parent[j]) {
+            for (int j = sink; j != source; j = parent[j]) {
                 int i = parent[j];
                 path_flow = Math.min(path_flow, residualGraph[i][j]);
             }
             // update residual capacities of the edges and
             // reverse edges along the path
-            for (int j = t; j != s; j = parent[j]) {
+            for (int j = sink; j != source; j = parent[j]) {
                 int i = parent[j];
                 residualGraph[i][j] -= path_flow;
                 residualGraph[j][i] += path_flow;
@@ -66,7 +66,7 @@ class FordFulkerson {
     }
 
     /**
-     * @return - residual graph (before augmenting max flow paths)
+     * @return residual graph (before augmenting max flow paths)
      */
     public int[][] getResidualMatrix() {
         return residualGraph;

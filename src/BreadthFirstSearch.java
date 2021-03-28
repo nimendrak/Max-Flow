@@ -10,11 +10,11 @@ public class BreadthFirstSearch {
     /**
      * bfs() check whether is a valid path or not
      *
-     * @param residualGraph   - Residual graph
-     * @param source   - Staring vertices
-     * @param sink     - Ending vertices
-     * @param parent   - This array is filled by BFS and to store path
-     * @param vertices - Num of vertex the in the graph
+     * @param residualGraph    Residual graph
+     * @param source    Staring vertices
+     * @param sink      Ending vertices
+     * @param parent    This array is filled by BFS and to store all the possible paths
+     * @param vertices  Num of vertex the in the graph
      * @return - True if there is a path from 'source' to 'sink' in the given residual graph
      */
     public static boolean bfs(int[][] residualGraph, int source, int sink, int[] parent, int vertices) {

@@ -30,10 +30,10 @@ public class DisplayGraph {
      * This method visualizes a graph
      * It can be whether Current Network flow or the Solution Network (Max Flow)
      *
-     * @param graphMatrix - The graph matrix
-     * @param ver         - Loaded Vertices count
-     * @param jPanel      - This will be added to the main JFrame
-     * @return - JPanel that has a graph
+     * @param graphMatrix  The graph matrix
+     * @param ver          Loaded Vertices count
+     * @param jPanel       This will be added to the main JFrame
+     * @return JPanel that has a graph
      */
     public static JPanel displayGraph(int[][] graphMatrix, int ver, JPanel jPanel) {
         FlowPane graphPane = new FlowPane();

@@ -25,10 +25,15 @@ public class MaxFlowAnalysis extends JFrame {
 
         JPanel jPanel = new JPanel();
 
-        XYSeries series = new XYSeries("Performance", false, true);
+        XYSeries series = new XYSeries(
+                "Performance",
+                false,
+                true);
 
+        // Mark data points on the graph as (x, y)
         for (int i = 0; i < executionTime.size(); i++) {
-            series.add(numOfVertices.get(i), executionTime.get(i));
+            int totalNumOfData = (numOfVertices.get(i) * numOfVertices.get(i));
+            series.add(totalNumOfData, executionTime.get(i));
         }
 
         XYSeriesCollection dataset = new XYSeriesCollection();
@@ -36,7 +41,7 @@ public class MaxFlowAnalysis extends JFrame {
 
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Performance Analysis",
-                "Num of Vertices",
+                "Matrix Size",
                 "Execution Time (ms)",
                 dataset,
                 PlotOrientation.VERTICAL,
@@ -45,7 +50,7 @@ public class MaxFlowAnalysis extends JFrame {
                 false
         );
 
-        // Render the graph curve
+        // Render the graph as a curve
         chart.getXYPlot().setRenderer(new XYSplineRenderer());
         ChartPanel chartPanel = new ChartPanel(chart);
 
