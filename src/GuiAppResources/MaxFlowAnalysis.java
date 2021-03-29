@@ -32,8 +32,7 @@ public class MaxFlowAnalysis extends JFrame {
 
         // Mark data points on the graph as (x, y)
         for (int i = 0; i < executionTime.size(); i++) {
-            int totalNumOfData = (numOfVertices.get(i) * numOfVertices.get(i));
-            series.add(totalNumOfData, executionTime.get(i));
+            series.add(numOfVertices.get(i), executionTime.get(i));
         }
 
         XYSeriesCollection dataset = new XYSeriesCollection();
