@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class MaxFlowAnalysis extends JFrame {
-    public MaxFlowAnalysis(List<Long> executionTime, List<Integer> numOfVertices) {
+    public MaxFlowAnalysis(List<Double> executionTime, List<Integer> numOfVertices) {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Max Flow");
 

@@ -22,7 +22,7 @@ public class Main {
     static List<Integer> numOfVertices = new ArrayList<>();
 
     // Time to execution to find Max Flow of each graph
-    static List<Long> executionTime = new ArrayList<>();
+    static List<Double> executionTime = new ArrayList<Double>();
 
     // loadedDataArr holds the data of a single test data file
     static ArrayList<int[]> loadedDataArr = new ArrayList<>();
@@ -325,24 +325,24 @@ public class Main {
                     graph[ints[0]][ints[1]] = ints[2];
                 }
 
-                // Get sys time in ms once before the computation
+                // Get sys time in nano seconds once before the computation
                 long startTime = System.nanoTime();
 
                 // Computes max flow and store it in variable
                 int maxFlow = fordFulkerson.fordFulkerson(VERTICES, graph, 0, (VERTICES - 1));
 
-                // Get sys time in ms once after the computation
+                // Get sys time in nano seconds once after the computation
                 long endTime = System.nanoTime();
 
                 // Store difference in a variable
                 long timeDiffer = endTime - startTime;
 
                 if (isAnalysis) {
-                    executionTime.add(timeDiffer);
+                    executionTime.add(timeDiffer/1000000.00);
                 } else {
                     // Show total execution time for analysis
                     System.out.println("The maximum possible flow -> " + "\033[1;93m" + maxFlow + "\033[0m");
-                    System.out.println("Total execution time      -> " + (timeDiffer/1000000) + "ms");
+                    System.out.println("Total execution time      -> " + (timeDiffer/1000000.00) + "ms");
                     System.out.println("-----------------------------------------");
                 }
             } else {
